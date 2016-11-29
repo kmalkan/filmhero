@@ -1,3 +1,12 @@
 <resources>
+    <!-- App -->
     <string name="app_name">Big Screen</string>
+
+    <!-- Content Description -->
+    <string name="movie_poster">Movie Poster</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_detail">Details</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>
