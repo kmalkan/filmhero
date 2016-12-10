@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.amazon.bigscreen.R;
 import com.amazon.bigscreen.model.Movie;
@@ -16,22 +15,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.amazon.bigscreen.model.Movie.getImageUrl;
+
 public class MovieAdapter extends ArrayAdapter<Movie> {
-    private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
-    private static final String UNKNOWN = "Unknown";
+    private static final int POSTER_SIZE = 2;
 
-    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    private static final String[] IMAGE_SIZE = {
-            "w92", "w154", "w185", "w342", "w500", "w780", "original"
-    };
-
-
-    private Context mContext;
     private List<Movie> movies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         super(context, 0, movies);
-        this.mContext = context;
         this.movies = movies;
     }
 
@@ -53,27 +48,41 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     // create a new ImageView for each item referenced by the Adapter
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        View v;
-        if (convertView == null) {
-            v = LayoutInflater.from(getContext()).inflate(R.layout.list_item_movie, parent, false);
+    public View getView(int position, View view, @NonNull ViewGroup parent) {
+        ViewHolder holder;
+
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.list_item_movie, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
         } else {
-            v = convertView;
+            holder = (ViewHolder) view.getTag();
         }
 
-        Movie movie = getItem(position);
+        ButterKnife.bind(this, view);
 
-        ImageView moviePosterView = (ImageView) v.findViewById(R.id.list_item_movie_poster);
-        moviePosterView.setLayoutParams(new GridView.LayoutParams(300, 500));
-        moviePosterView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        moviePosterView.setPadding(10, 10, 10, 10);
-        assert movie != null;
-        Picasso.with(getContext()).load(getImageUrl(movie.getPosterPath())).into(moviePosterView);
+        final Movie movie = getItem(position);
 
-        return v;
+        holder.moviePosterView.setLayoutParams(new GridView.LayoutParams(300, 500));
+        holder.moviePosterView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        holder.moviePosterView.setPadding(10, 10, 10, 10);
+
+        if (movie != null) {
+            Picasso.with(getContext())
+                    .load(getImageUrl(movie.getPosterPath(), POSTER_SIZE))
+                    .placeholder(R.drawable.movie_poster_placeholder_w185)
+                    .into(holder.moviePosterView);
+        }
+
+        return view;
     }
 
-    public static String getImageUrl(String path) {
-        return IMAGE_BASE_URL + IMAGE_SIZE[2] + path;
+    static class ViewHolder {
+        @BindView(R.id.list_item_movie_poster)
+        ImageView moviePosterView;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.amazon.bigscreen.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.amazon.bigscreen.BuildConfig;
@@ -25,13 +26,18 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
     private static final String LOG_TAG = FetchMoviesTask.class.getSimpleName();
 
     private static final String TMDB_BASE_URL = "http://api.themoviedb.org/3/movie/";
-    private static final String POPULAR_PATH  = "popular";
     private static final String API_KEY_PARAM = "api_key";
+    private static final String PAGE_NUMBER_PARAM = "page";
 
     private MovieAdapter mMovieAdapter;
+    private String sortCriteria;
+    private int pageNumber;
 
-    public FetchMoviesTask(MovieAdapter mMovieAdapter) {
+    public FetchMoviesTask(@NonNull MovieAdapter mMovieAdapter, @NonNull String sortCriteria,
+                           int pageNumber) {
         this.mMovieAdapter = mMovieAdapter;
+        this.sortCriteria = sortCriteria;
+        this.pageNumber = pageNumber;
     }
 
     @Override
@@ -39,18 +45,17 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-
         String movieJsonStr = null;
 
         try {
-
-            Uri uri = Uri.parse(TMDB_BASE_URL).buildUpon()
-                    .appendPath(POPULAR_PATH)
+            final Uri uri = Uri.parse(TMDB_BASE_URL).buildUpon()
+                    .appendPath(sortCriteria)
                     .appendQueryParameter(API_KEY_PARAM, BuildConfig.TMDB_API_KEY)
+                    .appendQueryParameter(PAGE_NUMBER_PARAM, String.valueOf(pageNumber))
                     .build();
 
             // Create the request to TMDB, and open the connection
-            URL url = new URL(uri.toString());
+            final URL url = new URL(uri.toString());
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -59,18 +64,12 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
             // Read the input stream into a String
             final InputStream inputStream = urlConnection.getInputStream();
             final StringBuilder buffer = new StringBuilder();
-
             if (inputStream == null) {
                 return null;
             }
-
             reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
-
             while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
                 buffer.append(line).append("\n");
             }
 
@@ -112,7 +111,9 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
     @Override
     protected void onPostExecute(List<Movie> movies) {
         if (movies != null) {
-            mMovieAdapter.clear();
+            if (pageNumber == 1) {
+                mMovieAdapter.clear();
+            }
             mMovieAdapter.addAll(movies);
         }
     }
@@ -122,7 +123,9 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
 
         // These are the names of the JSON objects that need to be extracted.
         final String TMDB_RESULTS = "results";
+        final String TMDB_ID = "id";
         final String TMDB_TITLE = "title";
+        final String TMDB_BACKDROP_PATH = "backdrop_path";
         final String TMDB_POSTER_PATH = "poster_path";
         final String TMDB_RELEASE_DATE = "release_date";
         final String TMDB_OVERVIEW = "overview";
@@ -130,24 +133,26 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<Movie>> {
         final String TMDB_VOTE_COUNT = "vote_count";
         final String TMDB_VOTE_AVERAGE = "vote_average";
 
-        JSONObject moviesJson = new JSONObject(moviesJsonStr);
-        JSONArray results = moviesJson.getJSONArray(TMDB_RESULTS);
-        List<Movie> movies = new ArrayList<>();
+        final JSONObject moviesJson = new JSONObject(moviesJsonStr);
+        final JSONArray results = moviesJson.getJSONArray(TMDB_RESULTS);
+        final List<Movie> movies = new ArrayList<>();
 
         for(int i = 0; i < results.length(); i++) {
             // Get the JSON object representing the movie
-            JSONObject movieJson = results.getJSONObject(i);
+            final JSONObject movieJson = results.getJSONObject(i);
 
             // Create a new Movie object
-            Movie movie = new Movie();
+            final Movie movie = new Movie();
 
+            movie.setId(movieJson.getInt(TMDB_ID));
             movie.setTitle(movieJson.getString(TMDB_TITLE));
+            movie.setBackdropPath(movieJson.getString(TMDB_BACKDROP_PATH));
             movie.setPosterPath(movieJson.getString(TMDB_POSTER_PATH));
             movie.setReleaseDate(movieJson.getString(TMDB_RELEASE_DATE));
             movie.setOverview(movieJson.getString(TMDB_OVERVIEW));
             movie.setPopularity(movieJson.getLong(TMDB_POPULARITY));
             movie.setVoteCount(movieJson.getInt(TMDB_VOTE_COUNT));
-            movie.setVoteAverage(movieJson.getLong(TMDB_VOTE_AVERAGE));
+            movie.setVoteAverage(movieJson.getDouble(TMDB_VOTE_AVERAGE));
 
             movies.add(movie);
         }

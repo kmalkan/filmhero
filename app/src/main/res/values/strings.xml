@@ -3,10 +3,29 @@
     <string name="app_name">Big Screen</string>
 
     <!-- Content Description -->
+    <string name="backdrop">Backdrop</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="heart">Heart Icon</string>
+    <string name="share">Share Icon</string>
+    <string name="attribution">Attribution</string>
 
     <!-- Menu -->
+    <string name="action_favorite">Favorite</string>
     <string name="action_settings">Settings</string>
+    <string name="action_sort">Sort</string>
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
+
+    <string name="sort_now_playing">Now Playing</string>
+    <string name="sort_popular">Popular</string>
+    <string name="sort_top_rated">Top Rated</string>
+    <string name="sort_upcoming">Upcoming</string>
+
+    <!-- Details -->
+    <string name="out_of_10">Out of 10</string>
+    <string name="genre">Genre</string>
+    <string name="runtime">Runtime</string>
+    <string name="runtime_measure">\u00A0minutes</string>
+    <string name="overview_header">Overview</string>
+
 </resources>

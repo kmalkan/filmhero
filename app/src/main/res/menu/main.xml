@@ -3,6 +3,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_sort"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:title="@string/action_sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/sort_now_playing"
+                    android:title="@string/sort_now_playing" />
+                <item android:id="@+id/sort_popular"
+                    android:checked="true"
+                    android:title="@string/sort_popular" />
+                <item android:id="@+id/sort_top_rated"
+                    android:title="@string/sort_top_rated" />
+                <item android:id="@+id/sort_upcoming"
+                android:title="@string/sort_upcoming" />
+            </group>
+        </menu>
+    </item>
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

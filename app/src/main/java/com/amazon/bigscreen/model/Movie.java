@@ -4,38 +4,37 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.amazon.bigscreen.adapter.MovieAdapter;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 public class Movie implements Parcelable {
-    private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
+    public static final String EXTRA_TAG= "movie";
+    private static final String LOG_TAG = Movie.class.getSimpleName();
 
+    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    private static final String[] IMAGE_SIZE = {
+            "w92", "w154", "w185", "w342", "w500", "w780", "original"
+    };
+    private int id;
     private String title;
+    private String backdropPath;
     private String posterPath;
     private String releaseDate;
     private String overview;
     private long popularity;
     private int voteCount;
-    private long voteAverage;
+    private double voteAverage;
+    private List<String> genres;
+    private int runtime;
+    private List<String> videos;
+    private boolean isFavorite;
 
     public Movie() {
-    }
-
-    public Movie(String title, String posterPath, String releaseDate, String overview,
-                 long popularity, int voteCount, long voteAverage) {
-        this.title = title;
-        this.posterPath = posterPath;
-        this.releaseDate = releaseDate;
-        this.overview = overview;
-        this.popularity = popularity;
-        this.voteCount = voteCount;
-        this.voteAverage = voteAverage;
     }
 
     @Override
@@ -45,13 +44,18 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel pc, int i) {
+        pc.writeInt(id);
         pc.writeString(title);
+        pc.writeString(backdropPath);
         pc.writeString(posterPath);
         pc.writeString(releaseDate);
         pc.writeString(overview);
         pc.writeLong(popularity);
         pc.writeInt(voteCount);
-        pc.writeLong(voteAverage);
+        pc.writeDouble(voteAverage);
+        pc.writeList(genres);
+        pc.writeInt(runtime);
+        pc.writeList(videos);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
@@ -64,18 +68,27 @@ public class Movie implements Parcelable {
     };
 
     private Movie(Parcel pc){
+        id = pc.readInt();
         title = pc.readString();
+        backdropPath = pc.readString();
         posterPath = pc.readString();
         releaseDate = pc.readString();
         overview = pc.readString();
         popularity = pc.readLong();
         voteCount = pc.readInt();
-        voteAverage = pc.readLong();
+        voteAverage = pc.readDouble();
+        pc.readList(genres, List.class.getClassLoader());
+        runtime = pc.readInt();
+        pc.readList(videos, List.class.getClassLoader());
+    }
+
+    public static String getImageUrl(String path, int size) {
+        return IMAGE_BASE_URL + IMAGE_SIZE[size] + path;
     }
 
     public Integer getYear() {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        Calendar calendar = new GregorianCalendar();
+        final DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        final Calendar calendar = new GregorianCalendar();
         try {
             calendar.setTime(df.parse(releaseDate));
             return calendar.get(Calendar.YEAR);
@@ -86,12 +99,28 @@ public class Movie implements Parcelable {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
     public String getPosterPath() {
@@ -134,12 +163,43 @@ public class Movie implements Parcelable {
         this.voteCount = voteCount;
     }
 
-    public long getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(long voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public List<String> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<String> videos) {
+        this.videos = videos;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }
