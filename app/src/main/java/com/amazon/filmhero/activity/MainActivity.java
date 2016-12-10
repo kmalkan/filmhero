@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.activity;
+package com.amazon.filmhero.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.amazon.bigscreen.fragment.MoviesFragment;
-import com.amazon.bigscreen.R;
+import com.amazon.filmhero.fragment.MoviesFragment;
+import com.amazon.filmhero.R;
 
 public class MainActivity extends AppCompatActivity {
 

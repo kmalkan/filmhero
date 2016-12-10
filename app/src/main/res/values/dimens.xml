@@ -14,7 +14,7 @@
     <dimen name="details_margin_small">10dp</dimen>
     <dimen name="details_header">16sp</dimen>
     <dimen name="details_text">12sp</dimen>
-    <dimen name="backdrop">190dp</dimen>
+    <dimen name="backdrop">200dp</dimen>
     <dimen name="movie_title">25sp</dimen>
     <dimen name="movie_poster_width">185dp</dimen>
     <dimen name="movie_poster_height">277dp</dimen>

@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.model;
+package com.amazon.filmhero.model;
 
 public class Genre {
     private int id;

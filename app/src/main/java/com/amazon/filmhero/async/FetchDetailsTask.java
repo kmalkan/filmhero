@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.async;
+package com.amazon.filmhero.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.amazon.bigscreen.BuildConfig;
-import com.amazon.bigscreen.R;
-import com.amazon.bigscreen.model.Movie;
+import com.amazon.filmhero.BuildConfig;
+import com.amazon.filmhero.R;
+import com.amazon.filmhero.model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

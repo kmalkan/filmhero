@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.adapter;
+package com.amazon.filmhero.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.amazon.bigscreen.R;
-import com.amazon.bigscreen.model.Movie;
+import com.amazon.filmhero.R;
+import com.amazon.filmhero.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.amazon.bigscreen.model.Movie.getImageUrl;
+import static com.amazon.filmhero.model.Movie.getImageUrl;
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
     private static final int POSTER_SIZE = 2;

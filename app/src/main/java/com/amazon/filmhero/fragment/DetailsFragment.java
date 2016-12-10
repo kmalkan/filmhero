@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.fragment;
+package com.amazon.filmhero.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,11 +26,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amazon.bigscreen.R;
-import com.amazon.bigscreen.activity.DetailActivity;
-import com.amazon.bigscreen.async.FetchDetailsTask;
-import com.amazon.bigscreen.async.FetchMoviesTask;
-import com.amazon.bigscreen.model.Movie;
+import com.amazon.filmhero.R;
+import com.amazon.filmhero.activity.DetailActivity;
+import com.amazon.filmhero.async.FetchDetailsTask;
+import com.amazon.filmhero.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
@@ -39,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.amazon.bigscreen.model.Movie.getImageUrl;
+import static com.amazon.filmhero.model.Movie.getImageUrl;
 
 public class DetailsFragment extends Fragment {
     private static final String LOG_TAG = DetailsFragment.class.getSimpleName();

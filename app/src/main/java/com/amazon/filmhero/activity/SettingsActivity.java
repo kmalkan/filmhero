@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.activity;
+package com.amazon.filmhero.activity;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.amazon.bigscreen.R;
+import com.amazon.filmhero.R;
 
 public class SettingsActivity extends AppCompatActivity
         implements Preference.OnPreferenceChangeListener {

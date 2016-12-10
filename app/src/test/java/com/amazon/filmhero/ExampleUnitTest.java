@@ -1,4 +1,4 @@
-package com.amazon.bigscreen;
+package com.amazon.filmhero;
 
 import org.junit.Test;
 

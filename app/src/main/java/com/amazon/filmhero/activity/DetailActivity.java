@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.activity;
+package com.amazon.filmhero.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.amazon.bigscreen.R;
-import com.amazon.bigscreen.fragment.DetailsFragment;
+import com.amazon.filmhero.R;
+import com.amazon.filmhero.fragment.DetailsFragment;
 
 public class DetailActivity extends AppCompatActivity {
     @Override

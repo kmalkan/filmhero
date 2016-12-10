@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.fragment;
+package com.amazon.filmhero.fragment;
 
 
 import android.app.ActivityOptions;
@@ -15,12 +15,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.amazon.bigscreen.R;
-import com.amazon.bigscreen.activity.DetailActivity;
-import com.amazon.bigscreen.adapter.MovieAdapter;
-import com.amazon.bigscreen.async.FetchMoviesTask;
-import com.amazon.bigscreen.listener.EndlessGridScrollListener;
-import com.amazon.bigscreen.model.Movie;
+import com.amazon.filmhero.R;
+import com.amazon.filmhero.activity.DetailActivity;
+import com.amazon.filmhero.adapter.MovieAdapter;
+import com.amazon.filmhero.async.FetchMoviesTask;
+import com.amazon.filmhero.listener.EndlessGridScrollListener;
+import com.amazon.filmhero.model.Movie;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
-package com.amazon.bigscreen.listener;
+package com.amazon.filmhero.listener;
 
 import android.widget.AbsListView;
-import android.widget.GridView;
 
 /**
  * Created by malkan on 12/1/2016.

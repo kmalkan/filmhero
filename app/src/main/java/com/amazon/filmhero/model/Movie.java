@@ -1,4 +1,4 @@
-package com.amazon.bigscreen.model;
+package com.amazon.filmhero.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

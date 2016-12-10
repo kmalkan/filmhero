@@ -1,13 +1,13 @@
-package com.amazon.bigscreen.async;
+package com.amazon.filmhero.async;
 
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.amazon.bigscreen.BuildConfig;
-import com.amazon.bigscreen.adapter.MovieAdapter;
-import com.amazon.bigscreen.model.Movie;
+import com.amazon.filmhero.BuildConfig;
+import com.amazon.filmhero.adapter.MovieAdapter;
+import com.amazon.filmhero.model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
